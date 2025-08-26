@@ -103,30 +103,10 @@ const config: Config = {
           title: 'Resources',
           items: [
             {
-              label: 'Edgeless Systems',
-              href: 'https://www.edgeless.systems/',
-            },
-            {
-              label: 'Privatemode.ai',
-              href: 'https://privatemode.ai/',
-            },
-            {
-              label: 'NVIDIA Confidential Computing',
-              href: 'https://www.nvidia.com/en-us/data-center/solutions/confidential-computing/',
-            },
-          ],
-        },
-        {
-          title: 'Related Projects',
-          items: [
-            {
-              label: 'Constellation',
-              href: 'https://github.com/edgelesssys/constellation',
-            },
-            {
-              label: 'EGo',
-              href: 'https://github.com/edgelesssys/ego',
-            },
+              label: 'Enclava.ai',
+              href: 'https://enclava.ai/',
+            }
+          
           ],
         },
       ],
