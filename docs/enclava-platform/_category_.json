@@ -1,0 +1,8 @@
+{
+  "label": "Enclava Platform",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Documentation for the Enclava platform, tools, and services."
+  }
+}

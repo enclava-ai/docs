@@ -1,0 +1,8 @@
+{
+  "label": "Privatemode",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Real-world implementation of confidential computing for AI inference with privatemode.ai by Edgeless Systems."
+  }
+}

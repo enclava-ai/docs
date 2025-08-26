@@ -1,0 +1,8 @@
+{
+  "label": "NVIDIA Confidential Enclaves",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Deep dive into NVIDIA's confidential computing technology and H100 GPU enclaves."
+  }
+}
