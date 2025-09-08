@@ -2,93 +2,55 @@
 sidebar_position: 1
 ---
 
-# How Confidential Computing Works
+# Confidential Computing for Enclava
 
-Confidential computing is transforming how we think about data protection in the cloud. This exciting technology ensures that sensitive data remains encrypted and protected not just in transit and at rest, but most importantly **during processing**.
+## Overview
 
-## What is Confidential Computing?
+Enclava uses confidential computing to protect sensitive data during AI processing. This technology ensures your data remains encrypted even while being processed by AI models.
 
-Confidential computing protects data in use through hardware-based **Trusted Execution Environments (TEEs)**. These secure enclaves create isolated, encrypted spaces where code and data can run without exposure to:
+## Key Concepts
 
-- Cloud providers
-- System administrators  
-- Operating system vulnerabilities
-- Other applications on the same hardware
+**Trusted Execution Environments (TEEs)**: Hardware-secured areas where data is processed in isolation. Even cloud providers and system administrators cannot access data inside a TEE.
 
-## Key Technologies
+**Remote Attestation**: Cryptographic proof that your workload is running in a genuine, unmodified TEE before processing begins.
 
-### Trusted Execution Environments (TEEs)
-Hardware-enforced secure enclaves that provide:
-- **Memory encryption** at the hardware level
-- **Code integrity** verification
-- **Remote attestation** capabilities
-- **Isolation** from privileged software
+**End-to-End Encryption**: Data remains encrypted from client to TEE, during processing, and back to client.
 
-### Confidential Virtual Machines (CVMs)
-Full virtual machines running in encrypted memory spaces, protecting entire workloads while maintaining compatibility with existing applications.
+## Security Guarantees
 
-### Confidential Containers
-Containerized applications running within TEEs, enabling cloud-native confidential computing deployments.
+### What TEEs Protect Against
+- **Cloud Provider Access**: Administrators cannot view your data
+- **Host OS Compromise**: Malicious software on the host cannot access TEE memory
+- **Physical Attacks**: Hardware-level memory encryption prevents physical extraction
+- **Co-tenant Threats**: Other workloads on the same hardware cannot access your data
 
-## Why Confidential Computing Matters
+### Known Limitations
+- Some side-channel attacks remain partially mitigated
+- Performance overhead of 3-5% for encryption operations
+- Requires trust in hardware manufacturer's implementation
 
-### Enhanced Security
-Data remains encrypted even during processing, protecting against insider threats and sophisticated attacks.
+## Technologies Used by Enclava
 
-### Multi-Cloud Trust
-Enables secure computation across different cloud providers without revealing sensitive data.
+### NVIDIA H100 TEEs
+- Hardware-accelerated AI inference with GPU memory encryption
+- Multi-Instance GPU (MIG) for secure workload isolation
+- Used for high-performance model serving
 
-### Regulatory Compliance  
-Meets stringent data protection requirements for industries like healthcare, finance, and government.
+Learn more: [NVIDIA Confidential Computing](https://developer.nvidia.com/confidential-computing)
 
-### Secure AI/ML
-Protects proprietary models and sensitive training data during machine learning workloads.
+### privatemode.ai
+- Confidential LLM inference service
+- No data retention or logging
+- Verified TEE deployment with attestation
 
-## Hardware Platforms
+Learn more: [privatemode.ai Security](https://privatemode.ai/security)
 
-Modern confidential computing is supported by leading hardware manufacturers:
+## Further Reading
 
-- **Intel SGX** - Software Guard Extensions for application-level enclaves
-- **Intel TDX** - Trust Domain Extensions for VM-level protection  
-- **AMD SEV** - Secure Encrypted Virtualization
-- **NVIDIA H100** - Confidential Computing with GPU acceleration
-- **ARM CCA** - Confidential Compute Architecture
-
-## Impact Areas
-
-Confidential computing is revolutionizing multiple domains:
-
-- **Data Sovereignty** - Control data even in third-party clouds
-- **AI Privacy** - Secure machine learning on sensitive datasets
-- **Multi-Party Computation** - Collaborative analytics without data sharing
-- **Edge Computing** - Secure processing at distributed locations
-- **Blockchain** - Enhanced privacy for smart contracts and transactions
-
-## Implementation Approaches
-
-### Hardware-Based Security
-- **TEE Selection**: Choosing appropriate hardware platforms (Intel SGX, AMD SEV, ARM CCA, NVIDIA H100)
-- **Attestation Protocols**: Verifying platform integrity before processing sensitive data
-- **Key Management**: Secure key derivation and protection using hardware security modules
-
-### Software Integration
-- **Runtime Modifications**: Adapting applications to run within TEE constraints
-- **Framework Support**: Integration with existing development frameworks and tools
-- **Performance Optimization**: Balancing security guarantees with computational efficiency
-
-### Deployment Patterns
-- **Confidential Containers**: Packaging applications with TEE-aware runtimes
-- **Orchestration**: Managing confidential workloads in Kubernetes and other platforms
-- **Multi-Cloud**: Deploying across different cloud providers while maintaining security
-
-## Getting Started
-
-1. **Assess Requirements**: Determine your security, performance, and compliance needs
-2. **Choose Hardware Platform**: Select appropriate TEE technology based on workload characteristics
-3. **Design Security Architecture**: Plan attestation, key management, and data flow patterns
-4. **Develop and Test**: Build applications with confidential computing support
-5. **Deploy and Monitor**: Implement in production with continuous security validation
+- [Confidential Computing Consortium](https://confidentialcomputing.io/) - Industry standards and best practices
+- [Intel SGX Documentation](https://www.intel.com/content/www/us/en/developer/tools/software-guard-extensions/overview.html)
+- [AMD SEV Technology](https://www.amd.com/en/developer/sev.html)
 
 ---
 
-*This foundational knowledge enables understanding of more advanced topics like NVIDIA GPU enclaves and real-world implementations such as privatemode.ai.*
+*For detailed implementation specifics, see the [NVIDIA TEE](/confidential-computing/nvidia-enclaves/overview) and [privatemode.ai](/confidential-computing/privatemode/overview) sections.*

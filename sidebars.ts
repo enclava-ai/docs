@@ -21,6 +21,7 @@ const sidebars: SidebarsConfig = {
       label: 'Enclava Platform',
       items: [
         'enclava-platform/overview',
+        'enclava-platform/architecture',
         'enclava-platform/api-reference',
         'enclava-platform/deployment',
       ],
@@ -35,7 +36,6 @@ const sidebars: SidebarsConfig = {
           label: 'Privatemode',
           items: [
             'confidential-computing/privatemode/overview',
-            'confidential-computing/privatemode/architecture',
             'confidential-computing/privatemode/threat-profile',
           ],
         },
@@ -44,7 +44,6 @@ const sidebars: SidebarsConfig = {
           label: 'NVIDIA Confidential Enclaves',
           items: [
             'confidential-computing/nvidia-enclaves/overview',
-            'confidential-computing/nvidia-enclaves/architecture', 
             'confidential-computing/nvidia-enclaves/threat-model',
           ],
         },

@@ -2,135 +2,58 @@
 sidebar_position: 1
 ---
 
-# NVIDIA Confidential Computing Overview
+# NVIDIA TEE Implementation
 
-NVIDIA has emerged as a key player in confidential computing, particularly for AI and high-performance computing workloads. Their approach combines hardware-level security with GPU acceleration to enable secure, private computation on sensitive data.
+## Overview
 
-## NVIDIA H100 Confidential Computing
+Enclava leverages NVIDIA H100 GPUs with confidential computing capabilities for secure AI inference. This provides hardware-level protection for sensitive workloads while maintaining high performance.
 
-The NVIDIA H100 Tensor Core GPU introduces comprehensive confidential computing capabilities, providing hardware-enforced security for AI workloads.
+## Key Features
 
-### Key Features
+### Hardware Security
+- **Memory Encryption**: AES-256-GCM encryption for all GPU memory (HBM3, L2 cache, registers)
+- **Secure Boot**: Hardware root of trust with cryptographic verification
+- **PCIe Protection**: Encrypted communication between CPU and GPU
 
-#### Hardware-Level Encryption
-- **Memory Encryption**: All GPU memory is encrypted at the hardware level
-- **PCIe Link Protection**: Secure communication between CPU and GPU
-- **Multi-Instance GPU (MIG) Isolation**: Secure partitioning of GPU resources
+### Multi-Instance GPU (MIG)
+- Up to 7 isolated partitions per H100 GPU
+- Independent encryption keys per partition
+- Hardware-enforced resource isolation (memory, compute, bandwidth)
 
-#### Remote Attestation Support  
-- **Hardware Root of Trust**: Cryptographic verification of GPU state
-- **Attestation Evidence**: Verifiable proof of platform integrity
-- **Chain of Trust**: From hardware boot to application execution
+### Remote Attestation
+- Cryptographic proof of authentic NVIDIA hardware
+- Verification of security configuration before workload deployment
+- Chain of trust from hardware boot to application
 
-#### Secure Multi-Tenancy
-- **MIG Confidential Computing**: Up to 7 isolated, secure partitions per GPU
-- **Resource Isolation**: Memory, compute, and bandwidth separation
-- **Independent Security Domains**: Each partition operates in isolation
+## Security Model
 
-## Architecture Components
+### Protection Level
+| Threat | Mitigation Status |
+|--------|------------------|
+| Cloud Provider Access | Strong - Hardware encryption prevents access |
+| Host OS Compromise | Strong - TEE isolation from host |
+| Physical Tampering | Strong - Memory encryption and secure boot |
+| Side Channels | Partial - Some timing channels remain |
+| Network Attacks | Strong - End-to-end encryption |
 
-### NVIDIA Hopper Architecture Security
+### Performance Impact
+- Memory encryption: < 5% overhead
+- Attestation: One-time setup cost
+- Overall inference: Minimal impact
 
-The H100's Hopper architecture provides several security primitives:
+## Integration with Enclava
 
-![NVIDIA Confidential Computing Architecture](https://developer.nvidia.com/sites/default/files/akamai/technologies/cuda-x/confidential-computing/CC-H100-tech-blog-hero.jpg)
+1. **Workload Submission**: Client sends encrypted request to Enclava
+2. **Attestation**: Platform verifies GPU TEE before processing
+3. **Secure Processing**: Model inference runs in isolated MIG partition
+4. **Encrypted Response**: Results returned without exposing data
 
-*Reference: [NVIDIA H100 Confidential Computing Technical Overview](https://developer.nvidia.com/blog/confidential-computing-with-nvidia-h100/)*
+## External Resources
 
-### Memory Protection Model
-
-#### GPU Memory Encryption
-- **At-Rest Protection**: All data stored in GPU memory is encrypted
-- **In-Transit Protection**: Data movement between GPU and system memory
-- **Key Management**: Hardware-based key derivation and protection
-
-#### Isolation Mechanisms
-- **Physical Isolation**: MIG provides hardware-level resource separation
-- **Virtual Isolation**: Secure virtualization with confidentiality guarantees
-- **Temporal Isolation**: Context switching with memory scrubbing
-
-## Trust Model
-
-### Threat Model
-
-NVIDIA's confidential computing protects against:
-
-| Threat Category | Protection Level | Description |
-|----------------|------------------|-------------|
-| **Malicious Host** | Strong | GPU operations protected from compromised host OS |
-| **Physical Access** | Strong | Memory encryption protects against hardware attacks |
-| **Side Channels** | Partial | Some mitigations, ongoing research area |
-| **Insider Threats** | Strong | Cloud provider admins cannot access workload data |
-| **Supply Chain** | Strong | Attestation verifies authentic NVIDIA hardware |
-
-### Trusted Computing Base (TCB)
-
-The NVIDIA confidential computing TCB includes:
-- **GPU Hardware**: H100 silicon and firmware
-- **GPU Driver**: Confidential computing aware drivers
-- **NVIDIA Software Stack**: CUDA runtime and libraries
-- **Hypervisor Integration**: KVM, VMware vSphere support
-
-### Attestation Flow
-
-**Attestation Process Flow:**
-1. Client requests attestation from GPU
-2. GPU generates cryptographic evidence  
-3. Evidence submitted to attestation service for verification
-4. Service validates the chain of trust
-5. Verification result returned to client
-6. Workload deployed only if verification succeeds
-
-*For detailed attestation flow diagrams, see: [NVIDIA Confidential Computing Documentation](https://docs.nvidia.com/datacenter/tesla/pdf/NVIDIA_Confidential_Computing_Guide.pdf)*
-
-## Performance Characteristics
-
-### Computational Overhead
-- **Encryption Impact**: < 5% performance degradation
-- **Attestation Cost**: One-time setup overhead
-- **Memory Bandwidth**: Minimal impact on GPU memory performance
-
-### Scalability Benefits
-- **Multi-GPU Support**: Confidential computing across multiple H100s
-- **MIG Efficiency**: Up to 7x better utilization with secure partitioning
-- **Workload Flexibility**: Support for various AI/ML frameworks
-
-## Use Cases
-
-### Secure AI Training
-- **Federated Learning**: Train models on distributed, private datasets
-- **Healthcare AI**: Process patient data while maintaining HIPAA compliance
-- **Financial Services**: Fraud detection on encrypted transaction data
-
-### Confidential Inference
-- **Private Queries**: Run inference without exposing input data
-- **Model Protection**: Prevent model theft and reverse engineering
-- **Edge Deployment**: Secure AI at edge locations
-
-### High-Performance Computing
-- **Scientific Computing**: Process sensitive research data
-- **Simulation Workloads**: Run simulations on confidential parameters
-- **Cryptographic Acceleration**: Hardware-accelerated crypto operations
-
-## Integration Ecosystem
-
-### Container Platforms
-- **NVIDIA GPU Operator**: Kubernetes integration with confidential computing
-- **Confidential Containers**: Support for confidential container runtimes
-- **Docker Support**: Confidential GPU containers
-
-### Cloud Provider Integration
-- **AWS EC2**: P5 instances with H100 confidential computing
-- **Google Cloud**: A3 VMs with confidential GPU support  
-- **Microsoft Azure**: ND H100 v5 series with confidential computing
-- **Oracle Cloud**: BM.GPU.H100 bare metal with CC support
-
-### Software Stack
-- **CUDA 12.x**: Confidential computing APIs and libraries
-- **TensorRT**: Optimized inference in confidential environments
-- **Triton Inference Server**: Confidential model serving
-- **RAPIDS**: Accelerated data science with privacy
+- [NVIDIA H100 Datasheet](https://resources.nvidia.com/en-us-tensor-core)
+- [NVIDIA Confidential Computing Documentation](https://docs.nvidia.com/datacenter/tesla/pdf/NVIDIA_Confidential_Computing_Guide.pdf)
+- [NVIDIA GPU Operator for Kubernetes](https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/overview.html)
 
 ---
 
-*NVIDIA's confidential computing capabilities represent a significant advancement in secure AI and HPC workloads, providing strong hardware-level protection while maintaining high performance.*
+*For threat analysis details, see [NVIDIA Threat Model](/confidential-computing/nvidia-enclaves/threat-model).*
