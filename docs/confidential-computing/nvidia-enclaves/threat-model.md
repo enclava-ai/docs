@@ -33,7 +33,7 @@ NVIDIA's confidential computing addresses the evolving threat landscape for AI a
 - Hardware security module (HSM) with tamper detection
 - Sealed package design with anti-tampering mechanisms
 - Secure boot with hardware root of trust
-- **Protection Level**: 🔴 High
+- **Protection Level**: High
 
 #### Cold Boot Attacks
 **Threat**: Memory extraction after system shutdown
@@ -41,7 +41,7 @@ NVIDIA's confidential computing addresses the evolving threat landscape for AI a
 - Hardware-based memory encryption with ephemeral keys
 - Memory scrubbing on power state transitions
 - Key derivation tied to hardware state
-- **Protection Level**: 🔴 High
+- **Protection Level**: High
 
 #### Side-Channel Attacks
 **Threat**: Information leakage through timing, power, or electromagnetic emissions
@@ -49,7 +49,7 @@ NVIDIA's confidential computing addresses the evolving threat landscape for AI a
 - Constant-time cryptographic operations
 - Memory access pattern obfuscation
 - Hardware countermeasures in Hopper architecture
-- **Protection Level**: 🟡 Moderate (ongoing research area)
+- **Protection Level**: Moderate (ongoing research area)
 
 **Identified Side-Channel Risks**:
 - **Timing Channels**: GPU execution time variations
@@ -65,7 +65,7 @@ NVIDIA's confidential computing addresses the evolving threat landscape for AI a
 - Hardware-enforced memory encryption
 - GPU memory isolation from host
 - Attestation-based trust verification
-- **Protection Level**: 🔴 High
+- **Protection Level**: High
 
 **Malicious Host OS Attack Sequence:**
 1. Host OS attempts malicious memory access through GPU driver
@@ -82,7 +82,7 @@ NVIDIA's confidential computing addresses the evolving threat landscape for AI a
 - Direct GPU access bypassing hypervisor
 - MIG-based isolation with hardware enforcement
 - Guest attestation independent of hypervisor
-- **Protection Level**: 🔴 High
+- **Protection Level**: High
 
 #### GPU Driver Attacks
 **Threat**: Malicious code injected into GPU driver
@@ -90,7 +90,7 @@ NVIDIA's confidential computing addresses the evolving threat landscape for AI a
 - Signed driver components with verified boot chain
 - Driver attestation as part of platform verification
 - Minimal trusted code base (TCB) in driver
-- **Protection Level**: 🟡 Moderate
+- **Protection Level**: Moderate
 
 ### 3. Multi-Tenancy Threats
 
@@ -100,7 +100,7 @@ NVIDIA's confidential computing addresses the evolving threat landscape for AI a
 - Hardware-enforced MIG isolation
 - Independent encryption keys per partition
 - Memory scrubbing between context switches
-- **Protection Level**: 🔴 High
+- **Protection Level**: High
 
 #### Resource Exhaustion Attacks
 **Threat**: One tenant consuming resources affecting others
@@ -108,7 +108,7 @@ NVIDIA's confidential computing addresses the evolving threat landscape for AI a
 - Hardware-enforced resource quotas
 - Quality of Service (QoS) guarantees per MIG
 - Bandwidth isolation and throttling
-- **Protection Level**: 🔴 High
+- **Protection Level**: High
 
 ### 4. Network and Communication Threats
 
@@ -118,7 +118,7 @@ NVIDIA's confidential computing addresses the evolving threat landscape for AI a
 - PCIe link encryption
 - End-to-end encryption for remote data
 - Secure key exchange protocols
-- **Protection Level**: 🔴 High
+- **Protection Level**: High
 
 #### Network Traffic Analysis
 **Threat**: Inference of computation patterns from network traffic
@@ -126,7 +126,7 @@ NVIDIA's confidential computing addresses the evolving threat landscape for AI a
 - Traffic padding and timing randomization
 - Encrypted communication channels
 - Decoy traffic generation
-- **Protection Level**: 🟡 Moderate
+- **Protection Level**: Moderate
 
 ## Attack Scenarios and Mitigations
 
@@ -142,10 +142,10 @@ NVIDIA's confidential computing addresses the evolving threat landscape for AI a
 
 **NVIDIA CC Defense**:
 ```
-1. ✅ Memory encryption prevents plaintext access
-2. ✅ Hardware root of trust prevents code injection  
-3. ✅ Attestation detects security feature tampering
-4. ✅ Hardware HSM prevents key extraction
+1.  Memory encryption prevents plaintext access
+2.  Hardware root of trust prevents code injection  
+3.  Attestation detects security feature tampering
+4.  Hardware HSM prevents key extraction
 ```
 
 ### Scenario 2: Multi-Tenant Side-Channel Attack
@@ -160,10 +160,10 @@ NVIDIA's confidential computing addresses the evolving threat landscape for AI a
 
 **NVIDIA CC Defense**:
 ```
-1. 🟡 MIG provides isolation but shared components exist
-2. 🟡 Some timing channels may exist (mitigation in progress)
-3. ✅ L2 cache partitioning reduces attack surface
-4. 🟡 Power analysis partially mitigated
+1.  MIG provides isolation but shared components exist
+2.  Some timing channels may exist (mitigation in progress)
+3.  L2 cache partitioning reduces attack surface
+4.  Power analysis partially mitigated
 ```
 
 ### Scenario 3: Supply Chain Compromise
@@ -178,10 +178,10 @@ NVIDIA's confidential computing addresses the evolving threat landscape for AI a
 
 **NVIDIA CC Defense**:
 ```
-1. ✅ Secure boot verifies firmware authenticity
-2. ✅ Hardware attestation detects modifications
-3. ✅ Certificate pinning prevents key compromise
-4. ✅ Reproducible builds enable verification
+1.  Secure boot verifies firmware authenticity
+2.  Hardware attestation detects modifications
+3.  Certificate pinning prevents key compromise
+4.  Reproducible builds enable verification
 ```
 
 ## Residual Risks and Limitations
@@ -207,13 +207,13 @@ NVIDIA's confidential computing addresses the evolving threat landscape for AI a
 
 | Threat Category | Likelihood | Impact | Risk Level | Mitigation Status |
 |----------------|------------|---------|------------|------------------|
-| Physical Tampering | Low | High | Medium | ✅ Implemented |
-| Host OS Compromise | Medium | High | Medium | ✅ Implemented |
-| Hypervisor Attack | Medium | High | Medium | ✅ Implemented |
-| Side Channels | Medium | Medium | Medium | 🔄 In Progress |
-| Supply Chain | Low | High | Medium | ✅ Implemented |
-| Driver Compromise | Low | High | Low | 🔄 Partial |
-| Network Attacks | Medium | Medium | Low | ✅ Implemented |
+| Physical Tampering | Low | High | Medium |  Implemented |
+| Host OS Compromise | Medium | High | Medium |  Implemented |
+| Hypervisor Attack | Medium | High | Medium |  Implemented |
+| Side Channels | Medium | Medium | Medium |  In Progress |
+| Supply Chain | Low | High | Medium |  Implemented |
+| Driver Compromise | Low | High | Low |  Partial |
+| Network Attacks | Medium | Medium | Low |  Implemented |
 
 ## Security Recommendations
 

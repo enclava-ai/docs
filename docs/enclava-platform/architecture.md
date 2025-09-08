@@ -37,7 +37,7 @@ Enclava follows a modern microservices architecture built with scalability, secu
 - Signal API: Messaging bot integration
 - Plugin Ecosystem: Extensible third-party integrations
 
-## API Architecture
+## 📡 API Architecture
 
 ### Dual API Design
 
@@ -178,7 +178,7 @@ response = await provider.chat_completion(
 - Memory isolation during inference
 - No caching of sensitive data
 
-## Module System Architecture
+## 🔌 Module System Architecture
 
 ### Core Module Framework
 
@@ -373,7 +373,7 @@ engine = create_async_engine(
 - Pagination for large result sets
 - Efficient joins and relationship loading
 
-## Integration Patterns
+## 🔗 Integration Patterns
 
 ### Client Integration Options
 

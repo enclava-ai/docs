@@ -57,11 +57,11 @@ NVIDIA's confidential computing protects against:
 
 | Threat Category | Protection Level | Description |
 |----------------|------------------|-------------|
-| **Malicious Host** | ✅ Strong | GPU operations protected from compromised host OS |
-| **Physical Access** | ✅ Strong | Memory encryption protects against hardware attacks |
-| **Side Channels** | 🔶 Partial | Some mitigations, ongoing research area |
-| **Insider Threats** | ✅ Strong | Cloud provider admins cannot access workload data |
-| **Supply Chain** | ✅ Strong | Attestation verifies authentic NVIDIA hardware |
+| **Malicious Host** | Strong | GPU operations protected from compromised host OS |
+| **Physical Access** | Strong | Memory encryption protects against hardware attacks |
+| **Side Channels** | Partial | Some mitigations, ongoing research area |
+| **Insider Threats** | Strong | Cloud provider admins cannot access workload data |
+| **Supply Chain** | Strong | Attestation verifies authentic NVIDIA hardware |
 
 ### Trusted Computing Base (TCB)
 

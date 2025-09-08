@@ -32,16 +32,16 @@ Containerized applications running within TEEs, enabling cloud-native confidenti
 
 ## Why Confidential Computing Matters
 
-### 🔒 Enhanced Security
+### Enhanced Security
 Data remains encrypted even during processing, protecting against insider threats and sophisticated attacks.
 
-### 🌐 Multi-Cloud Trust
+### Multi-Cloud Trust
 Enables secure computation across different cloud providers without revealing sensitive data.
 
-### ⚖️ Regulatory Compliance  
+### Regulatory Compliance  
 Meets stringent data protection requirements for industries like healthcare, finance, and government.
 
-### 🤖 Secure AI/ML
+### Secure AI/ML
 Protects proprietary models and sensitive training data during machine learning workloads.
 
 ## Hardware Platforms

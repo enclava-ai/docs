@@ -81,7 +81,7 @@ Privatemode.ai addresses unique threats specific to confidential AI inference:
 - **End-to-end encryption** protects network traffic
 - **Attestation verification** detects compromised environments
 
-**Effectiveness**: 🔴 **High Protection**
+**Effectiveness**: **High Protection**
 
 ### 2. Model Extraction and Inference Attacks
 
@@ -108,7 +108,7 @@ Privatemode.ai addresses unique threats specific to confidential AI inference:
 - **Rate Limiting**: Prevents large-scale extraction attempts
 - **Attestation**: Verifies model integrity and prevents tampering
 
-**Effectiveness**: 🔴 **High Protection** (with rate limiting)
+**Effectiveness**: **High Protection** (with rate limiting)
 
 ### 3. Side-Channel and Timing Attacks
 
@@ -135,7 +135,7 @@ Privatemode.ai addresses unique threats specific to confidential AI inference:
 - **Resource isolation** through confidential computing
 - **Noise injection** in observable metrics
 
-**Effectiveness**: 🟡 **Moderate Protection** (ongoing research area)
+**Effectiveness**: **Moderate Protection** (ongoing research area)
 
 ### 4. Supply Chain and Infrastructure Attacks
 
@@ -162,7 +162,7 @@ Privatemode.ai addresses unique threats specific to confidential AI inference:
 - **Certificate Pinning**: Known-good certificate validation
 - **Continuous Monitoring**: Runtime integrity verification
 
-**Effectiveness**: 🔴 **High Protection** (with verification)
+**Effectiveness**: **High Protection** (with verification)
 
 ## Risk Assessment Matrix
 
@@ -170,29 +170,26 @@ Privatemode.ai addresses unique threats specific to confidential AI inference:
 
 | Threat Category | Likelihood | Impact | Risk Score | Mitigation Status |
 |----------------|------------|---------|------------|-------------------|
-| **Cloud Provider Data Access** | Medium | High | 🔴 High | ✅ Mitigated |
-| **Infrastructure Compromise** | Medium | High | 🔴 High | ✅ Mitigated |
-| **Model Extraction** | High | Medium | 🟡 Medium | ✅ Mitigated |
-| **Side-Channel Attacks** | Medium | Medium | 🟡 Medium | 🔄 Partial |
-| **Supply Chain Attacks** | Low | High | 🟡 Medium | ✅ Mitigated |
-| **Insider Threats** | Low | High | 🟡 Medium | ✅ Mitigated |
-| **Physical Access** | Low | High | 🟡 Medium | ✅ Mitigated |
-| **Network Attacks** | High | Low | 🟢 Low | ✅ Mitigated |
+| **Cloud Provider Data Access** | Medium | High | High | Mitigated |
+| **Infrastructure Compromise** | Medium | High | High | Mitigated |
+| **Model Extraction** | High | Medium | Medium | Mitigated |
+| **Side-Channel Attacks** | Medium | Medium | Medium | Partial |
+| **Supply Chain Attacks** | Low | High | Medium | Mitigated |
+| **Insider Threats** | Low | High | Medium | Mitigated |
+| **Physical Access** | Low | High | Medium | Mitigated |
+| **Network Attacks** | High | Low | Low | Mitigated |
 
 ### Residual Risk Analysis
 
 #### High-Confidence Protections
-- **Data confidentiality** during processing ✅
-- **End-to-end encryption** for communication ✅  
-- **Administrative access prevention** ✅
-- **Physical memory protection** ✅
-- **Supply chain verification** ✅
-
+- **Data confidentiality** during processing
+- **End-to-end encryption** for communication  
+- **Administrative access prevention** - **Physical memory protection** - **Supply chain verification** 
 #### Areas Requiring Ongoing Attention
-- **Side-channel vulnerabilities** 🔄
-- **Zero-day exploits** in TEE implementations 🔄
-- **Quantum computing threats** (future concern) ⚠️
-- **Advanced persistent threats** with multiple vectors 🔄
+- **Side-channel vulnerabilities**
+- **Zero-day exploits** in TEE implementations
+- **Quantum computing threats** (future concern)
+- **Advanced persistent threats** with multiple vectors
 
 ## Compliance and Regulatory Considerations
 
@@ -201,12 +198,12 @@ Privatemode.ai addresses unique threats specific to confidential AI inference:
 #### GDPR Compliance
 ```yaml
 gdpr_requirements:
-  data_protection_by_design: ✅ "Hardware-enforced privacy"
-  data_minimization: ✅ "No unnecessary data retention"
-  purpose_limitation: ✅ "Inference-only processing"
-  storage_limitation: ✅ "No persistent data storage"
-  integrity_confidentiality: ✅ "End-to-end encryption"
-  accountability: ✅ "Attestation evidence"
+  data_protection_by_design: "Hardware-enforced privacy"
+  data_minimization: "No unnecessary data retention"
+  purpose_limitation: "Inference-only processing"
+  storage_limitation: "No persistent data storage"
+  integrity_confidentiality: "End-to-end encryption"
+  accountability: "Attestation evidence"
 ```
 
 #### HIPAA Compliance

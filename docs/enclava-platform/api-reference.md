@@ -6,32 +6,9 @@ sidebar_position: 3
 
 Complete API documentation for the Enclava platform, covering both public and internal APIs with authentication, request/response formats, and integration examples.
 
-## Authentication
 
-Enclava supports two authentication methods depending on the API tier:
 
-### API Key Authentication (Public API)
-For external integrations and programmatic access:
-
-```http
-Authorization: Bearer enclv_1234567890abcdef
-```
-
-**API Key Tiers:**
-- **Standard**: 1,000 requests/min, 20,000/hour
-- **Premium**: 5,000 requests/min, 100,000/hour
-
-### JWT Token Authentication (Internal API)
-For web application frontend access:
-
-```http
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-```
-
-**User Tiers:**
-- **Authenticated Users**: 300 requests/min, 5,000/hour
-
-## Public API (`/api/v1/`)
+## Chat Completion API (`/api/v1/`)
 
 External client access with OpenAI compatibility for seamless integration.
 
@@ -170,66 +147,43 @@ POST /api/v1/embeddings
 }
 ```
 
-#### Provider Status
 
-Check health status of LLM providers.
+### Chatbot <!-- Services -->
 
-```http
-GET /api/v1/llm/providers/status
-```
+#### Simple Chat Interface
 
-**Response:**
-```json
-{
-  "providers": [
-    {
-      "name": "privatemode",
-      "status": "healthy",
-      "models": ["privatemode-llama-3-70b", "privatemode-llama-3-8b"],
-      "latency_ms": 245,
-      "last_check": "2024-01-15T10:30:00Z"
-    }
-  ],
-  "overall_status": "healthy"
-}
-```
-
-### Chatbot Services
-
-#### Interact with Chatbot
-
-Send a message to a specific chatbot instance.
+Basic message/response interaction.
 
 ```http
-POST /api/v1/chatbot/{chatbot_id}/interact
+POST /api/v1/chatbot/external/{chatbot_id}/chat
 ```
 
 **Request Body:**
 ```json
 {
   "message": "Hello, I need help with my account",
-  "session_id": "session_123",
-  "context": {
-    "user_id": "user_456",
-    "metadata": {}
-  }
+  "conversation_id": "optional-session-123"
 }
 ```
 
 **Response:**
 ```json
 {
+  "conversation_id": "session_123",
   "response": "Hello! I'd be happy to help with your account. What specific issue are you experiencing?",
-  "session_id": "session_123",
-  "chatbot_id": "bot_789",
-  "usage": {
-    "prompt_tokens": 45,
-    "completion_tokens": 28,
-    "total_tokens": 73
-  },
-  "cost": 0.0015
+  "timestamp": "2024-01-15T10:30:00Z"
 }
 ```
+
+#### OpenAI-Compatible Chat
+
+Uses standard OpenAI format for compatibility.
+
+```http
+POST /api/v1/chatbot/external/{chatbot_id}/chat/completions
+```
+
+**Request/Response:** Same as standard OpenAI format above.
 
 #### List Chatbots
 
@@ -253,117 +207,147 @@ GET /api/v1/chatbot/list
     }
   ]
 }
-``
+```
+
 ## Integration Examples
 
-### Python (OpenAI Client)
+### Standard OpenAI API
 
+#### Python
 ```python
-import openai
+from openai import OpenAI
 
-# Configure client for Enclava
-client = openai.OpenAI(
+client = OpenAI(
     api_key="enclv_your_api_key_here",
     base_url="https://your-enclava-instance.com/api/v1"
 )
 
-# Chat completion
 response = client.chat.completions.create(
     model="privatemode-llama-3-70b",
-    messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "Explain confidential computing"}
-    ]
+    messages=[{"role": "user", "content": "What is confidential computing?"}],
+    temperature=0.7
 )
 
 print(response.choices[0].message.content)
 ```
 
-### JavaScript/Node.js
-
+#### JavaScript
 ```javascript
-const OpenAI = require('openai');
+import OpenAI from 'openai';
 
 const openai = new OpenAI({
-  apiKey: 'enclv_your_api_key_here',
-  baseURL: 'https://your-enclava-instance.com/api/v1'
+    apiKey: 'enclv_your_api_key_here',
+    baseURL: 'https://your-enclava-instance.com/api/v1'
 });
 
-async function chatCompletion() {
-  const completion = await openai.chat.completions.create({
-    messages: [
-      { role: 'system', content: 'You are a helpful assistant.' },
-      { role: 'user', content: 'What is a TEE?' }
-    ],
-    model: 'privatemode-llama-3-70b'
-  });
+const response = await openai.chat.completions.create({
+    model: 'privatemode-llama-3-70b',
+    messages: [{ role: 'user', content: 'What is a TEE?' }]
+});
 
-  console.log(completion.choices[0].message);
-}
+console.log(response.choices[0].message.content);
 ```
 
-### cURL
-
+#### cURL
 ```bash
-# Chat completion
 curl -X POST https://your-enclava-instance.com/api/v1/chat/completions \
   -H "Authorization: Bearer enclv_your_api_key_here" \
   -H "Content-Type: application/json" \
   -d '{
     "model": "privatemode-llama-3-70b",
-    "messages": [
-      {"role": "user", "content": "Hello!"}
-    ],
+    "messages": [{"role": "user", "content": "Hello!"}],
     "temperature": 0.7
   }'
-
-# List models
-curl https://your-enclava-instance.com/api/v1/models \
-  -H "Authorization: Bearer enclv_your_api_key_here"
 ```
 
-## Webhooks
+### Chatbot Simple API
 
-Configure webhooks to receive real-time notifications about platform events.
+#### Python
+```python
+import requests
 
-### Webhook Configuration
+response = requests.post(
+    "https://your-enclava-instance.com/api/v1/chatbot/external/your-chatbot-id/chat",
+    headers={"Authorization": "Bearer enclv_your_api_key_here"},
+    json={"message": "I need help with billing"}
+)
 
-```http
-POST /api-internal/v1/webhooks
+data = response.json()
+print(data["response"])
 ```
 
-**Request Body:**
-```json
-{
-  "url": "https://your-app.com/webhooks/enclava",
-  "events": [
-    "chatbot.message_received",
-    "rag.document_processed", 
-    "budget.threshold_exceeded"
-  ],
-  "secret": "your-webhook-secret"
-}
+#### JavaScript
+```javascript
+const response = await fetch(
+    'https://your-enclava-instance.com/api/v1/chatbot/external/your-chatbot-id/chat',
+    {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer enclv_your_api_key_here',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ message: 'I need help with billing' })
+    }
+);
+
+const data = await response.json();
+console.log(data.response);
 ```
 
-### Event Payload
-
-```json
-{
-  "event": "chatbot.message_received",
-  "timestamp": "2024-01-15T10:30:00Z",
-  "data": {
-    "chatbot_id": "bot_123",
-    "conversation_id": "conv_456",
-    "message": {
-      "role": "user",
-      "content": "Hello, I need help"
-    },
-    "session_id": "session_789"
-  },
-  "webhook_id": "webhook_012"
-}
+#### cURL
+```bash
+curl -X POST https://your-enclava-instance.com/api/v1/chatbot/external/your-chatbot-id/chat \
+  -H "Authorization: Bearer enclv_your_api_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{"message": "I need help with billing"}'
 ```
 
----
+### Chatbot OpenAI API
 
+#### Python
+```python
+from openai import OpenAI
+
+client = OpenAI(
+    api_key="enclv_your_api_key_here",
+    base_url="https://your-enclava-instance.com/api/v1/chatbot/external/your-chatbot-id"
+)
+
+response = client.chat.completions.create(
+    model="any",  # Model determined by chatbot config
+    messages=[{"role": "user", "content": "Help me with customer support"}]
+)
+
+print(response.choices[0].message.content)
+```
+
+#### JavaScript
+```javascript
+import OpenAI from 'openai';
+
+const openai = new OpenAI({
+    apiKey: 'enclv_your_api_key_here',
+    baseURL: 'https://your-enclava-instance.com/api/v1/chatbot/external/your-chatbot-id'
+});
+
+const response = await openai.chat.completions.create({
+    model: 'any',
+    messages: [{ role: 'user', content: 'I need technical support' }]
+});
+
+console.log(response.choices[0].message.content);
+```
+
+#### cURL
+```bash
+curl -X POST https://your-enclava-instance.com/api/v1/chatbot/external/your-chatbot-id/chat/completions \
+  -H "Authorization: Bearer enclv_your_api_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "any",
+    "messages": [{"role": "user", "content": "Hi there!"}]
+  }'
+```
+
+ 
 *Complete API documentation with interactive examples is available at `/api/v1/docs` when running your Enclava instance.*

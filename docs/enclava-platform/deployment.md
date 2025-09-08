@@ -20,21 +20,19 @@ Get Enclava running locally in under 5 minutes:
 
 ```bash
 # Clone the repository
-git clone <your-enclava-repo>
+git clone https://github.com/enclava-ai/enclava.git
 cd enclava
+
+# Copy environment variables
+cp .env.example .env
+# edit the .env file with your preferred settings
+vim .env
 
 # Start the platform
 docker compose up --build
 
-# Access the application
-open http://localhost:80
 ```
 
-**Default Access:**
-- **Main Application**: http://localhost:80 (Nginx proxy)
-- **Frontend Direct**: http://localhost:3002 (Development)
-- **API Documentation**: http://localhost:80/api/v1/docs
-- **Qdrant Dashboard**: http://localhost:56333/dashboard
 
 ## Docker Architecture
 
@@ -97,7 +95,6 @@ ADMIN_PASSWORD=secure_admin_password
 
 # LLM Service Configuration
 PRIVATEMODE_API_KEY=your-privatemode-api-key
-LLM_ENCRYPTION_KEY=your-llm-encryption-key
 
 # Development & Debugging
 LOG_LLM_PROMPTS=false
@@ -117,11 +114,6 @@ FRONTEND_INTERNAL_PORT=3000
 openssl rand -hex 32
 ```
 
-**API Key Encryption:**
-```bash
-# Generate LLM encryption key
-python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
-```
 
 ### Database Configuration
 
@@ -327,43 +319,6 @@ networks:
         - subnet: 172.20.0.0/16
 ```
 
-## Monitoring & Observability
-
-### Health Checks
-
-**Application Health:**
-```bash
-# Backend health
-curl -f http://localhost:80/health
-
-# Database connectivity
-curl -f http://localhost:80/api/v1/health/db
-
-# LLM providers
-curl -f http://localhost:80/api/v1/llm/providers/status
-```
-
-**Service Health Monitoring:**
-```yaml
-# docker-compose monitoring
-healthcheck:
-  test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
-  interval: 30s
-  timeout: 10s
-  retries: 3
-  start_period: 40s
-```
-
-### Logging Configuration
-
-**Centralized Logging:**
-```yaml
-# Add to all services
-logging:
-  driver: "json-file"
-  options:
-    max-size: "200m"
-    max-file: "10"
 ```
 
 **Log Aggregation:**
@@ -405,110 +360,7 @@ enclava-grafana:
     - grafana-data:/var/lib/grafana
 ```
 
-## Operational Procedures
 
-### Backup Procedures
-
-**Database Backup:**
-```bash
-#!/bin/bash
-# daily-backup.sh
-docker compose exec -T enclava-postgres pg_dump -U enclava_user enclava_db | \
-  gzip > "backup/enclava_$(date +%Y%m%d).sql.gz"
-
-# Cleanup old backups (keep 30 days)
-find backup/ -name "enclava_*.sql.gz" -mtime +30 -delete
-```
-
-**Configuration Backup:**
-```bash
-# Backup configuration files
-tar -czf "config_backup_$(date +%Y%m%d).tar.gz" \
-  .env \
-  docker-compose.yml \
-  nginx/ \
-  ssl/
-```
-
-### Update Procedures
-
-**Application Updates:**
-```bash
-# Pull latest changes
-git pull origin main
-
-# Rebuild and restart services
-docker compose down
-docker compose up --build -d
-
-# Check health
-docker compose ps
-curl -f http://localhost:80/health
-```
-
-**Database Migrations:**
-```bash
-# Run migrations manually if needed
-docker compose exec enclava-backend alembic upgrade head
-
-# Check migration status
-docker compose exec enclava-backend alembic current
-```
-
-### Scaling Considerations
-
-**Horizontal Scaling:**
-```yaml
-# Scale backend instances
-enclava-backend:
-  scale: 3
-  
-# Load balancer configuration
-enclava-nginx:
-  volumes:
-    - ./nginx/nginx.scaled.conf:/etc/nginx/nginx.conf:ro
-```
-
-**Resource Limits:**
-```yaml
-enclava-backend:
-  deploy:
-    resources:
-      limits:
-        cpus: '2.0'
-        memory: 4G
-      reservations:
-        cpus: '0.5'
-        memory: 1G
-```
-
-## Troubleshooting
-
-### Common Issues
-
-**Service Won't Start:**
-```bash
-# Check service status
-docker compose ps
-
-# View service logs
-docker compose logs enclava-backend
-
-# Check resource usage
-docker stats
-```
-
-**Database Connection Issues:**
-```bash
-# Test database connection
-docker compose exec enclava-postgres pg_isready
-
-# Check connection from backend
-docker compose exec enclava-backend python -c "
-from app.db.database import engine
-print(engine.url)
-"
-```
 
 **Migration Failures:**
 ```bash
@@ -520,26 +372,6 @@ docker compose exec enclava-backend alembic history
 
 # Run specific migration
 docker compose exec enclava-backend alembic upgrade head
-```
-
-### Performance Issues
-
-**High Memory Usage:**
-```bash
-# Monitor container resources
-docker stats --format "table {{.Container}}\t{{.CPUPerc}}\t{{.MemUsage}}"
-
-# Check Redis memory usage
-docker compose exec enclava-redis redis-cli info memory
-```
-
-**Slow API Responses:**
-```bash
-# Check LLM provider status
-curl http://localhost:80/api/v1/llm/providers/status
-
-# Monitor database performance
-docker compose exec enclava-postgres pg_stat_activity
 ```
 
 ### Recovery Procedures
@@ -570,6 +402,5 @@ docker volume create enclava_enclava-postgres-data
 docker compose up -d
 ```
 
----
+--
 
-*For additional deployment support and advanced configurations, please refer to the platform's operational runbooks and monitoring guides.*

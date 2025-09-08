@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Enclava Platform Overview
+# Overview
 
 Enclava is a comprehensive AI platform that combines powerful language models with confidential computing capabilities, providing secure, scalable, and feature-rich AI solutions for enterprises and developers.
 
@@ -69,7 +69,6 @@ Enclava is a comprehensive AI platform that combines powerful language models wi
 
 ### Next Steps
 
-- [Architecture Documentation](/enclava-platform/architecture) - Technical deep-dive
 - [API Reference](/enclava-platform/api-reference) - Complete API documentation  
 - [Deployment Guide](/enclava-platform/deployment) - Production deployment instructions
 
