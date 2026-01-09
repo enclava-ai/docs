@@ -40,14 +40,14 @@ docker compose up --build
 
 ```yaml
 services:
-  enclava-nginx:       # Reverse proxy and load balancer
+  enclava-nginx:       # Reverse proxy
   enclava-migrate:     # Database migration runner
   enclava-backend:     # FastAPI application server
   enclava-frontend:    # Next.js web interface
   enclava-postgres:    # Primary database
   enclava-redis:       # Cache and session store
   enclava-qdrant:      # Vector database for RAG
-  privatemode-proxy:   # Confidential computing proxy
+  privatemode-proxy:   # Confidential inference proxy
 ```
 
 ### Port Configuration
