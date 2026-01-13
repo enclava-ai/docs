@@ -65,11 +65,7 @@ const config: Config = {
       respectPrefersColorScheme: false,
     },
     navbar: {
-      title: 'Enclava',
-      logo: {
-        alt: 'Enclava Logo',
-        src: 'img/logo.svg',
-      },
+      title: 'ENCLAVA',
       items: [
         {
           type: 'docSidebar',
@@ -114,7 +110,7 @@ const config: Config = {
     },
     prism: {
       theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
+      darkTheme: prismThemes.vsDark,
     },
   } satisfies Preset.ThemeConfig,
 };

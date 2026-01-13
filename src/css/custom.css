@@ -2,29 +2,706 @@
  * Any CSS included here will be global. The classic template
  * bundles Infima by default. Infima is a CSS framework designed to
  * work well for content-centric websites.
+ *
+ * Professional Cypherpunk Design System
+ * Matching enclava-new-landing design aesthetic
  */
 
-/* You can override the default Infima variables here. */
+/* ============================================
+   FONT FACE DECLARATIONS
+   ============================================ */
+
+/* Inter - Body Font */
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-300.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Plus Jakarta Sans - Display/Heading Font */
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('/fonts/PlusJakartaSans-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('/fonts/PlusJakartaSans-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('/fonts/PlusJakartaSans-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('/fonts/PlusJakartaSans-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('/fonts/PlusJakartaSans-800.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* JetBrains Mono - Code Font */
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================
+   ROOT VARIABLES (LIGHT MODE + TYPOGRAPHY)
+   ============================================ */
+
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  /* Typography */
+  --ifm-font-family-base: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu,
+                          Cantarell, Noto Sans, sans-serif;
+  --ifm-heading-font-family: 'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI,
+                              Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+  --ifm-font-family-monospace: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas,
+                                Liberation Mono, Courier New, monospace;
+
+  /* Font sizes */
+  --ifm-font-size-base: 100%;
   --ifm-code-font-size: 95%;
+  --ifm-line-height-base: 1.65;
+
+  /* Font weights */
+  --ifm-font-weight-normal: 400;
+  --ifm-font-weight-semibold: 500;
+  --ifm-font-weight-bold: 600;
+  --ifm-heading-font-weight: 600;
+
+  /* Heading sizes */
+  --ifm-h1-font-size: 2rem;
+  --ifm-h2-font-size: 1.5rem;
+  --ifm-h3-font-size: 1.25rem;
+  --ifm-h4-font-size: 1rem;
+  --ifm-h5-font-size: 0.875rem;
+  --ifm-h6-font-size: 0.85rem;
+
+  /* Border radius */
+  --ifm-global-radius: 0.5rem;
+
+  /* Spacing */
+  --ifm-spacing-horizontal: 1rem;
+  --ifm-spacing-vertical: 1rem;
+
+  /* Light Mode Colors (for users who prefer light mode) */
+  --ifm-color-primary: rgb(8, 134, 161);
+  --ifm-color-primary-dark: rgb(7, 121, 145);
+  --ifm-color-primary-darker: rgb(7, 114, 137);
+  --ifm-color-primary-darkest: rgb(6, 94, 113);
+  --ifm-color-primary-light: rgb(11, 147, 177);
+  --ifm-color-primary-lighter: rgb(12, 154, 185);
+  --ifm-color-primary-lightest: rgb(16, 175, 210);
+
+  --ifm-color-secondary: rgb(11, 128, 99);
+  --ifm-color-secondary-dark: rgb(10, 115, 89);
+  --ifm-color-secondary-darker: rgb(9, 109, 84);
+  --ifm-color-secondary-darkest: rgb(8, 90, 69);
+
+  --ifm-background-color: rgb(255, 255, 255);
+  --ifm-background-surface-color: rgb(247, 249, 250);
+
+  --ifm-font-color-base: rgb(28, 33, 48);
+  --ifm-font-color-secondary: rgb(71, 79, 95);
+
+  --ifm-code-background: rgb(247, 249, 250);
+  --ifm-code-color: rgb(8, 134, 161);
+
+  --ifm-color-emphasis-300: rgb(221, 225, 230);
+  --ifm-hr-background-color: rgb(221, 225, 230);
+
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
+/* ============================================
+   DARK MODE - PROFESSIONAL CYPHERPUNK THEME
+   ============================================ */
+
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  /* === PRIMARY COLOR SYSTEM === */
+  /* Electric cyan as primary accent */
+  --ifm-color-primary: rgb(12, 191, 230);
+  --ifm-color-primary-dark: rgb(11, 172, 207);
+  --ifm-color-primary-darker: rgb(10, 163, 196);
+  --ifm-color-primary-darkest: rgb(8, 134, 161);
+  --ifm-color-primary-light: rgb(39, 199, 233);
+  --ifm-color-primary-lighter: rgb(52, 203, 234);
+  --ifm-color-primary-lightest: rgb(91, 215, 238);
+
+  /* === SECONDARY COLORS === */
+  /* Teal/green for success states and accents */
+  --ifm-color-secondary: rgb(16, 183, 141);
+  --ifm-color-secondary-dark: rgb(14, 165, 127);
+  --ifm-color-secondary-darker: rgb(13, 156, 120);
+  --ifm-color-secondary-darkest: rgb(11, 128, 99);
+  --ifm-color-secondary-light: rgb(42, 191, 152);
+  --ifm-color-secondary-lighter: rgb(55, 195, 159);
+  --ifm-color-secondary-lightest: rgb(94, 207, 177);
+
+  /* === SEMANTIC COLORS === */
+  --ifm-color-success: rgb(16, 183, 141);
+  --ifm-color-success-dark: rgb(14, 165, 127);
+  --ifm-color-success-darker: rgb(13, 156, 120);
+  --ifm-color-success-darkest: rgb(11, 128, 99);
+
+  --ifm-color-info: rgb(12, 191, 230);
+  --ifm-color-info-dark: rgb(11, 172, 207);
+  --ifm-color-info-darker: rgb(10, 163, 196);
+  --ifm-color-info-darkest: rgb(8, 134, 161);
+
+  --ifm-color-warning: rgb(255, 186, 0);
+  --ifm-color-warning-dark: rgb(230, 167, 0);
+  --ifm-color-warning-darker: rgb(217, 158, 0);
+  --ifm-color-warning-darkest: rgb(179, 130, 0);
+
+  --ifm-color-danger: rgb(250, 56, 62);
+  --ifm-color-danger-dark: rgb(225, 50, 56);
+  --ifm-color-danger-darker: rgb(212, 47, 53);
+  --ifm-color-danger-darkest: rgb(175, 39, 44);
+
+  /* === BACKGROUND & SURFACE COLORS === */
+  --ifm-background-color: rgb(22, 27, 39);
+  --ifm-background-surface-color: rgb(28, 33, 48);
+
+  /* === TEXT COLORS === */
+  --ifm-font-color-base: rgb(247, 249, 250);
+  --ifm-font-color-base-inverse: rgb(22, 27, 39);
+  --ifm-font-color-secondary: rgb(184, 189, 199);
+
+  /* === HEADING COLORS === */
+  --ifm-heading-color: rgb(247, 249, 250);
+
+  /* === LINK COLORS === */
+  --ifm-link-color: rgb(12, 191, 230);
+  --ifm-link-hover-color: rgb(39, 199, 233);
+  --ifm-link-decoration: none;
+
+  /* === CODE BLOCK COLORS === */
+  --ifm-code-background: rgb(28, 33, 48);
+  --ifm-code-color: rgb(12, 191, 230);
+  --ifm-pre-background: rgb(28, 33, 48);
+  --ifm-pre-color: rgb(247, 249, 250);
+
+  /* === BORDER & DIVIDER COLORS === */
+  --ifm-color-emphasis-0: rgb(22, 27, 39);
+  --ifm-color-emphasis-100: rgb(41, 46, 56);
+  --ifm-color-emphasis-200: rgb(41, 46, 56);
+  --ifm-color-emphasis-300: rgb(51, 57, 69);
+  --ifm-color-emphasis-400: rgb(61, 68, 82);
+  --ifm-color-emphasis-500: rgb(71, 79, 95);
+  --ifm-color-emphasis-600: rgb(91, 100, 115);
+  --ifm-color-emphasis-700: rgb(111, 121, 136);
+  --ifm-color-emphasis-800: rgb(131, 142, 157);
+  --ifm-color-emphasis-900: rgb(184, 189, 199);
+
+  --ifm-hr-background-color: rgb(41, 46, 56);
+  --ifm-scrollbar-track-background-color: rgb(22, 27, 39);
+  --ifm-scrollbar-thumb-background-color: rgb(41, 46, 56);
+  --ifm-scrollbar-thumb-hover-background-color: rgb(51, 57, 69);
+
+  /* === TABLE COLORS === */
+  --ifm-table-stripe-background: rgba(28, 33, 48, 0.5);
+  --ifm-table-border-color: rgb(41, 46, 56);
+
+  /* === CARD & COMPONENT COLORS === */
+  --ifm-card-background-color: rgb(28, 33, 48);
+  --ifm-toc-border-color: rgb(41, 46, 56);
+
+  /* === NAVBAR === */
+  --ifm-navbar-background-color: rgba(22, 27, 39, 0.95);
+  --ifm-navbar-shadow: 0 1px 2px 0 rgba(12, 191, 230, 0.1);
+  --ifm-navbar-link-color: rgb(184, 189, 199);
+  --ifm-navbar-link-hover-color: rgb(247, 249, 250);
+  --ifm-navbar-link-active-color: rgb(12, 191, 230);
+
+  /* === MENU/SIDEBAR === */
+  --ifm-menu-color: rgb(184, 189, 199);
+  --ifm-menu-color-active: rgb(12, 191, 230);
+  --ifm-menu-color-background-active: rgba(12, 191, 230, 0.1);
+  --ifm-menu-color-background-hover: rgba(28, 33, 48, 0.8);
+
+  /* === FOOTER === */
+  --ifm-footer-background-color: rgb(22, 27, 39);
+  --ifm-footer-color: rgb(184, 189, 199);
+  --ifm-footer-link-color: rgb(184, 189, 199);
+  --ifm-footer-link-hover-color: rgb(12, 191, 230);
+  --ifm-footer-title-color: rgb(247, 249, 250);
+
+  /* === ALERT/ADMONITION BACKGROUNDS === */
+  --ifm-alert-background-color: rgb(28, 33, 48);
+  --ifm-alert-border-left-width: 4px;
+
+  /* === PAGINATION === */
+  --ifm-pagination-nav-color-hover: rgb(12, 191, 230);
+  --ifm-pagination-nav-border-color: rgb(41, 46, 56);
+
+  /* === BREADCRUMBS === */
+  --ifm-breadcrumb-color-active: rgb(12, 191, 230);
+  --ifm-breadcrumb-item-background-active: transparent;
+
+  /* === HIGHLIGHTED CODE LINE === */
+  --docusaurus-highlighted-code-line-bg: rgba(12, 191, 230, 0.15);
+
+  /* === BUTTON OVERRIDES === */
+  --ifm-button-background-color: transparent;
+  --ifm-button-border-color: rgb(12, 191, 230);
+  --ifm-button-color: rgb(12, 191, 230);
+  --ifm-button-font-weight: 500;
+}
+
+/* ============================================
+   TYPOGRAPHY RULES
+   ============================================ */
+
+/* Ensure headings use Plus Jakarta Sans with proper tracking */
+h1, h2, h3, h4, h5, h6,
+.markdown h1, .markdown h2, .markdown h3, .markdown h4, .markdown h5, .markdown h6 {
+  font-family: var(--ifm-heading-font-family);
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+/* Body text improvements */
+body {
+  font-family: var(--ifm-font-family-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Code blocks */
+code, pre, kbd, samp {
+  font-family: var(--ifm-font-family-monospace);
+}
+
+/* ============================================
+   PROFESSIONAL CYPHERPUNK AESTHETIC
+   ============================================ */
+
+/* === GLASS MORPHISM === */
+
+/* Glass panel utility class */
+.glass-panel {
+  background: rgba(28, 33, 48, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(12, 191, 230, 0.1);
+  border-radius: var(--ifm-global-radius);
+}
+
+/* Apply glass effect to cards */
+[data-theme='dark'] .card,
+[data-theme='dark'] .markdown > .card {
+  background: rgba(28, 33, 48, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(12, 191, 230, 0.1);
+  transition: all 0.3s ease;
+}
+
+[data-theme='dark'] .card:hover {
+  border-color: rgba(12, 191, 230, 0.3);
+  box-shadow: 0 0 20px rgba(12, 191, 230, 0.15);
+}
+
+/* === TEXT GLOW EFFECTS === */
+
+/* Subtle glow on primary colored text */
+[data-theme='dark'] .markdown a,
+[data-theme='dark'] .menu__link--active {
+  text-shadow: 0 0 10px rgba(12, 191, 230, 0.2);
+}
+
+/* Hero title gradient (if exists) */
+[data-theme='dark'] .hero__title {
+  background: linear-gradient(
+    135deg,
+    rgb(12, 191, 230) 0%,
+    rgb(16, 183, 141) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(
+    135deg,
+    rgb(12, 191, 230) 0%,
+    rgb(16, 183, 141) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Text glow utility */
+.text-glow {
+  text-shadow: 0 0 20px rgba(12, 191, 230, 0.3);
+}
+
+/* === ENHANCED CODE BLOCKS === */
+
+[data-theme='dark'] .prism-code {
+  background: rgba(28, 33, 48, 0.8);
+  border: 1px solid rgba(41, 46, 56, 0.8);
+  border-radius: var(--ifm-global-radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Inline code styling */
+[data-theme='dark'] code:not([class*="language-"]) {
+  background: rgba(28, 33, 48, 0.8);
+  border: 1px solid rgba(12, 191, 230, 0.2);
+  color: rgb(12, 191, 230);
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 90%;
+}
+
+/* === NAVBAR ENHANCEMENTS === */
+
+[data-theme='dark'] .navbar {
+  background: rgba(22, 27, 39, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(12, 191, 230, 0.1);
+}
+
+/* Navbar title/logo styling - text-based matching landing page */
+.navbar__title {
+  font-family: var(--ifm-heading-font-family);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  color: rgb(247, 249, 250);
+  transition: opacity 0.3s ease;
+}
+
+.navbar__title:hover {
+  opacity: 0.8;
+}
+
+[data-theme='dark'] .navbar__item.navbar__link--active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgb(12, 191, 230) 50%,
+    transparent 100%
+  );
+}
+
+/* === SIDEBAR ENHANCEMENTS === */
+
+[data-theme='dark'] .theme-doc-sidebar-container {
+  background: rgba(22, 27, 39, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-right: 1px solid rgba(41, 46, 56, 0.8);
+}
+
+[data-theme='dark'] .menu__link {
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+[data-theme='dark'] .menu__link:hover {
+  background: rgba(28, 33, 48, 0.8);
+  color: rgb(12, 191, 230);
+}
+
+[data-theme='dark'] .menu__link--active {
+  background: rgba(12, 191, 230, 0.15);
+  border-left: 3px solid rgb(12, 191, 230);
+  padding-left: calc(var(--ifm-menu-link-padding-horizontal) - 3px);
+}
+
+/* === BUTTON STYLES === */
+
+[data-theme='dark'] .button--primary,
+[data-theme='dark'] .button--secondary {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(12, 191, 230, 0.5);
+  background: transparent;
+  color: rgb(12, 191, 230);
+  transition: all 0.3s ease;
+}
+
+[data-theme='dark'] .button--primary:hover,
+[data-theme='dark'] .button--secondary:hover {
+  background: rgba(12, 191, 230, 0.1);
+  border-color: rgb(12, 191, 230);
+  box-shadow: 0 0 20px rgba(12, 191, 230, 0.3);
+  transform: translateY(-1px);
+}
+
+/* === ADMONITIONS WITH GLOW === */
+
+[data-theme='dark'] .admonition {
+  border-radius: var(--ifm-global-radius);
+  border-left-width: 4px;
+  background: rgba(28, 33, 48, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+[data-theme='dark'] .admonition-note {
+  border-left-color: rgb(12, 191, 230);
+}
+
+[data-theme='dark'] .admonition-tip {
+  border-left-color: rgb(16, 183, 141);
+}
+
+[data-theme='dark'] .admonition-info {
+  border-left-color: rgb(12, 191, 230);
+}
+
+[data-theme='dark'] .admonition-caution {
+  border-left-color: rgb(255, 186, 0);
+}
+
+[data-theme='dark'] .admonition-danger {
+  border-left-color: rgb(250, 56, 62);
+}
+
+/* === TABLE OF CONTENTS === */
+
+[data-theme='dark'] .table-of-contents__link--active {
+  color: rgb(12, 191, 230);
+  border-left-color: rgb(12, 191, 230);
+  font-weight: 500;
+}
+
+/* === FOOTER STYLING === */
+
+[data-theme='dark'] .footer {
+  background: rgba(22, 27, 39, 0.95);
+  border-top: 1px solid rgba(12, 191, 230, 0.1);
+}
+
+/* === PAGINATION === */
+
+[data-theme='dark'] .pagination-nav__link {
+  border: 1px solid rgba(41, 46, 56, 0.8);
+  border-radius: var(--ifm-global-radius);
+  transition: all 0.3s ease;
+}
+
+[data-theme='dark'] .pagination-nav__link:hover {
+  border-color: rgba(12, 191, 230, 0.5);
+  box-shadow: 0 0 15px rgba(12, 191, 230, 0.2);
+  background: rgba(28, 33, 48, 0.6);
+}
+
+/* === SEARCH BAR (DocSearch) === */
+
+[data-theme='dark'] .DocSearch-Button {
+  background: rgba(28, 33, 48, 0.8);
+  border: 1px solid rgba(41, 46, 56, 0.8);
+  transition: all 0.2s ease;
+}
+
+[data-theme='dark'] .DocSearch-Button:hover {
+  background: rgba(28, 33, 48, 1);
+  border-color: rgba(12, 191, 230, 0.3);
+  box-shadow: 0 0 10px rgba(12, 191, 230, 0.15);
+}
+
+/* === SCROLLBAR STYLING === */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(22, 27, 39);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(41, 46, 56);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(51, 57, 69);
+  box-shadow: 0 0 5px rgba(12, 191, 230, 0.3);
+}
+
+/* ============================================
+   CUSTOM PRISM TOKEN COLORS
+   ============================================ */
+
+/* Custom Prism Token Colors for Cypherpunk Theme */
+[data-theme='dark'] .token.comment,
+[data-theme='dark'] .token.prolog,
+[data-theme='dark'] .token.doctype,
+[data-theme='dark'] .token.cdata {
+  color: rgb(111, 121, 136);
+}
+
+[data-theme='dark'] .token.punctuation {
+  color: rgb(184, 189, 199);
+}
+
+[data-theme='dark'] .token.property,
+[data-theme='dark'] .token.tag,
+[data-theme='dark'] .token.boolean,
+[data-theme='dark'] .token.number,
+[data-theme='dark'] .token.constant,
+[data-theme='dark'] .token.symbol,
+[data-theme='dark'] .token.deleted {
+  color: rgb(12, 191, 230);
+}
+
+[data-theme='dark'] .token.selector,
+[data-theme='dark'] .token.attr-name,
+[data-theme='dark'] .token.string,
+[data-theme='dark'] .token.char,
+[data-theme='dark'] .token.builtin,
+[data-theme='dark'] .token.inserted {
+  color: rgb(16, 183, 141);
+}
+
+[data-theme='dark'] .token.operator,
+[data-theme='dark'] .token.entity,
+[data-theme='dark'] .token.url,
+[data-theme='dark'] .language-css .token.string,
+[data-theme='dark'] .style .token.string {
+  color: rgb(247, 249, 250);
+}
+
+[data-theme='dark'] .token.atrule,
+[data-theme='dark'] .token.attr-value,
+[data-theme='dark'] .token.keyword {
+  color: rgb(12, 191, 230);
+}
+
+[data-theme='dark'] .token.function,
+[data-theme='dark'] .token.class-name {
+  color: rgb(39, 199, 233);
+}
+
+[data-theme='dark'] .token.regex,
+[data-theme='dark'] .token.important,
+[data-theme='dark'] .token.variable {
+  color: rgb(16, 183, 141);
+}
+
+/* ============================================
+   ANIMATION KEYFRAMES
+   ============================================ */
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.6;
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 1;
+    filter: brightness(1.2);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* === UTILITY CLASSES === */
+
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+.pulse-glow {
+  animation: pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.border-glow {
+  box-shadow: 0 0 10px rgba(12, 191, 230, 0.3);
+}
+
+/* === BROWSER COMPATIBILITY === */
+
+/* Fallback for browsers without backdrop-filter support */
+@supports not (backdrop-filter: blur(12px)) {
+  [data-theme='dark'] .glass-panel,
+  [data-theme='dark'] .card,
+  [data-theme='dark'] .navbar,
+  [data-theme='dark'] .theme-doc-sidebar-container {
+    background: rgb(28, 33, 48);
+  }
 }
