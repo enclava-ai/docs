@@ -32,6 +32,8 @@ const sidebars: SidebarsConfig = {
       items: [
         'confidential-computing/how-it-works',
         'confidential-computing/business-value',
+        'confidential-computing/confidential-inference',
+        'confidential-computing/confidential-inference-sources',
         'confidential-computing/business-value-sources',
         {
           type: 'category',
