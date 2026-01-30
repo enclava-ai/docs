@@ -31,6 +31,8 @@ const sidebars: SidebarsConfig = {
       label: 'Confidential Computing',
       items: [
         'confidential-computing/how-it-works',
+        'confidential-computing/business-value',
+        'confidential-computing/business-value-sources',
         {
           type: 'category',
           label: 'Privatemode',
